@@ -10,15 +10,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf().disable()
-            .authorizeHttpRequests(auth -> auth
-                .anyRequest().authenticated()
-            )
-            .httpBasic();
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http
+				.csrf().disable()
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers(
+								"/swagger-ui/**",
+								"/swagger-ui.html",
+								"/swagger-ui/index.html")
+						.permitAll()
+						.anyRequest().authenticated())
+				.httpBasic();
 
-        return http.build();
-    }
+		return http.build();
+	}
 }
