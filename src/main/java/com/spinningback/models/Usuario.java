@@ -74,7 +74,6 @@ public class Usuario {
 	@Column(nullable = false)
 	private String numero;
 
-	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String complemento;
 }

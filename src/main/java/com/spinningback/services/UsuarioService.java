@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import com.spinningback.DTO.UsuarioDTO;
@@ -59,7 +60,8 @@ public class UsuarioService {
 		existente.setCpf(atualizado.getCpf());
 		existente.setEmail(atualizado.getEmail());
 		existente.setTelefone(atualizado.getTelefone());
-		existente.setSenha(atualizado.getSenha());
+		String senhaCriptografada = BCrypt.hashpw(atualizado.getSenha(), BCrypt.gensalt());
+		existente.setSenha(senhaCriptografada);
 		existente.setDataDeNascimento(atualizado.getDataDeNascimento());
 		existente.setCEP(atualizado.getCEP());
 		existente.setEstado(atualizado.getEstado());
