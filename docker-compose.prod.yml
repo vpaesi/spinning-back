@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+    app:
+        image: spinningbackdb/spinning-back-server:latest
+        build:
+            context: ./
+            dockerfile: Dockerfile
+            args:
+                - ENVIRONMENT=prod
+        restart: always
+        ports:
+            - "8080:8080"
+        networks:
+            - springapipostgres-net
+        volumes:
+            - ".m2:/root/.m2"
+        environment:
+            - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+            - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+            - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+networks:
+    springapipostgres-net:

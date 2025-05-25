@@ -1,0 +1,34 @@
+version: "3.7"
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        ENVIRONMENT: dev
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ".m2:/root/.m2"
+    environment:
+      - DEV_DB_URL=${DEV_DB_URL}
+      - DEV_DB_USERNAME=${DEV_DB_USERNAME}
+      - DEV_DB_PASSWORD=${DEV_DB_PASSWORD}
+      - WEB_API=${WEB_API}
+    networks:
+      - backend
+  postgres:
+    image: postgres:15
+    restart: "no"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DEV_DB_USERNAME}
+      POSTGRES_PASSWORD: ${DEV_DB_PASSWORD}
+      POSTGRES_DB: ${DEV_DB_NAME}
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
