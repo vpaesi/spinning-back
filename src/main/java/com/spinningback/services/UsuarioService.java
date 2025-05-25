@@ -47,47 +47,27 @@ public class UsuarioService {
 	public Usuario atualizarUsuario(Long id, Usuario usuarioAtualizado) {
 		Usuario existente = usuarios.get(id);
 		if (existente == null) {
-			throw new NoSuchElementException("Usuário não encontrado.");
+			throw new NoSuchElementException("Usuário não encontrado");
 		}
-		if (usuarioAtualizado.getNomeCompleto() != null) {
-			existente.setNomeCompleto(usuarioAtualizado.getNomeCompleto());
-		}
-		if (usuarioAtualizado.getCpf() != null) {
-			existente.setCpf(usuarioAtualizado.getCpf());
-		}
-		if (usuarioAtualizado.getEmail() != null) {
-			existente.setEmail(usuarioAtualizado.getEmail());
-		}
-		if (usuarioAtualizado.getTelefone() != null) {
-			existente.setTelefone(usuarioAtualizado.getTelefone());
-		}
-		if (usuarioAtualizado.getSenha() != null) {
-			existente.setSenha(usuarioAtualizado.getSenha());
-		}
-		existente.setDataDeNascimento(usuarioAtualizado.getDataDeNascimento());
-		if (usuarioAtualizado.getCEP() != null) {
-			existente.setCEP(usuarioAtualizado.getCEP());
-		}
-		if (usuarioAtualizado.getEstado() != null) {
-			existente.setEstado(usuarioAtualizado.getEstado());
-		}
-		if (usuarioAtualizado.getCidade() != null) {
-			existente.setCidade(usuarioAtualizado.getCidade());
-		}
-		if (usuarioAtualizado.getBairro() != null) {
-			existente.setBairro(usuarioAtualizado.getBairro());
-		}
-		if (usuarioAtualizado.getLogradouro() != null) {
-			existente.setLogradouro(usuarioAtualizado.getLogradouro());
-		}
-		if (usuarioAtualizado.getNumero() != null) {
-			existente.setNumero(usuarioAtualizado.getNumero());
-		}
-		if (usuarioAtualizado.getComplemento() != null) {
-			existente.setComplemento(usuarioAtualizado.getComplemento());
-		}
-
+		atualizarCamposUsuario(existente, usuarioAtualizado);
+		usuarios.put(id, existente);
 		return existente;
+	}
+
+	private void atualizarCamposUsuario(Usuario existente, Usuario atualizado) {
+		existente.setNomeCompleto(atualizado.getNomeCompleto());
+		existente.setCpf(atualizado.getCpf());
+		existente.setEmail(atualizado.getEmail());
+		existente.setTelefone(atualizado.getTelefone());
+		existente.setSenha(atualizado.getSenha());
+		existente.setDataDeNascimento(atualizado.getDataDeNascimento());
+		existente.setCEP(atualizado.getCEP());
+		existente.setEstado(atualizado.getEstado());
+		existente.setCidade(atualizado.getCidade());
+		existente.setBairro(atualizado.getBairro());
+		existente.setLogradouro(atualizado.getLogradouro());
+		existente.setNumero(atualizado.getNumero());
+		existente.setComplemento(atualizado.getComplemento());
 	}
 
 	// DELETE
