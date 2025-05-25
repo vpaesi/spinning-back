@@ -39,7 +39,7 @@ public class UsuarioController {
     )
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Usuário criado com sucesso", content = @Content(mediaType = "application/json", examples = {
-            @ExampleObject(value = "{\"id\":1,\"nomeCompleto\":\"Beatrice Oliveira Gomes\",\"email\":\"BeatrizOliveiraGomes@dayrep.com\",\"senha\":\"$2a$10$...\",\"telefone\":\"(44) 4850-8628\",\"cpf\":\"907.157.038-03\",\"dataDeNascimento\":\"1963-01-03\"}")
+            @ExampleObject(value = "{\"id\":1,\"nomeCompleto\":\"Beatrice Oliveira Gomes\",\"email\":\"BeatrizOliveiraGomes@dayrep.com\",\"senha\":\"$2a$10$...\",\"telefone\":\"(44) 4850-8628\",\"cpf\":\"907.157.038-03\",\"dataDeNascimento\":\"1963-01-03\", \"cep\":\"12345-678\",\"estado\":\"SP\",\"cidade\":\"São Paulo\",\"bairro\":\"Centro\",\"logradouro\":\"Rua A\",\"numero\":\"123\",\"complemento\":\"Apto 1\"}")
         }))
     })
     @PostMapping
@@ -85,7 +85,7 @@ public class UsuarioController {
             content = @Content(
                 mediaType = "application/json",
                 examples = @ExampleObject(
-                    value = "{\n  \"nomeCompleto\": \"Beatrice Oliveira Gomes\",\n  \"email\": \"BeatrizOliveiraGomes@dayrep.com\",\n  \"senha\": \"maej0ooHi5\",\n  \"confirmacaoDeSenha\": \"maej0ooHi5\",\n  \"telefone\": \"(44) 4850-8628\",\n  \"cpf\": \"907.157.038-03\",\n  \"dataDeNascimento\": \"1963-01-03\"\n}"
+                    value = "{\n  \"nomeCompleto\": \"Beatrice Oliveira Gomes\",\n  \"email\": \"BeatrizOliveiraGomes@dayrep.com\",\n  \"senha\": \"maej0ooHi5\",\n  \"confirmacaoDeSenha\": \"maej0ooHi5\",\n  \"telefone\": \"(44) 4850-8628\",\n  \"cpf\": \"907.157.038-03\",\n  \"dataDeNascimento\": \"1963-01-03\",\n \"cep\": \"12345-678\",\n  \"estado\": \"SP\",\n  \"cidade\": \"São Paulo\",\n  \"bairro\": \"Centro\",\n  \"logradouro\": \"Rua A\",\n  \"numero\": \"123\",\n  \"complemento\": \"Apto 1\"\n}"
                 )
             )
         )

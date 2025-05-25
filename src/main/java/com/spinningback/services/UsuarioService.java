@@ -52,14 +52,41 @@ public class UsuarioService {
 		if (usuarioAtualizado.getNomeCompleto() != null) {
 			existente.setNomeCompleto(usuarioAtualizado.getNomeCompleto());
 		}
+		if (usuarioAtualizado.getCpf() != null) {
+			existente.setCpf(usuarioAtualizado.getCpf());
+		}
 		if (usuarioAtualizado.getEmail() != null) {
 			existente.setEmail(usuarioAtualizado.getEmail());
+		}
+		if (usuarioAtualizado.getTelefone() != null) {
+			existente.setTelefone(usuarioAtualizado.getTelefone());
 		}
 		if (usuarioAtualizado.getSenha() != null) {
 			existente.setSenha(usuarioAtualizado.getSenha());
 		}
-		// dataDeNascimento é opcional
 		existente.setDataDeNascimento(usuarioAtualizado.getDataDeNascimento());
+		if (usuarioAtualizado.getCEP() != null) {
+			existente.setCEP(usuarioAtualizado.getCEP());
+		}
+		if (usuarioAtualizado.getEstado() != null) {
+			existente.setEstado(usuarioAtualizado.getEstado());
+		}
+		if (usuarioAtualizado.getCidade() != null) {
+			existente.setCidade(usuarioAtualizado.getCidade());
+		}
+		if (usuarioAtualizado.getBairro() != null) {
+			existente.setBairro(usuarioAtualizado.getBairro());
+		}
+		if (usuarioAtualizado.getLogradouro() != null) {
+			existente.setLogradouro(usuarioAtualizado.getLogradouro());
+		}
+		if (usuarioAtualizado.getNumero() != null) {
+			existente.setNumero(usuarioAtualizado.getNumero());
+		}
+		if (usuarioAtualizado.getComplemento() != null) {
+			existente.setComplemento(usuarioAtualizado.getComplemento());
+		}
+
 		return existente;
 	}
 

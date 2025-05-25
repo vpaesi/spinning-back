@@ -33,21 +33,48 @@ public class Usuario {
 
 	@NotBlank
 	@Column(nullable = false, unique = true)
-	private String email;
+	private String cpf;
 
+	@NotBlank
+	@Column(nullable = false, unique = true)
+	private String email;
+	
+	@NotBlank
+	@Column(nullable = false)
+	private String telefone;
+		
 	@NotBlank
 	@Column(nullable = false)
 	private String senha;
 
-	@NotBlank
-	@Column(nullable = false)
-	private String telefone;
-
-	@NotBlank
-	@Column(nullable = false, unique = true)
-	private String cpf;
-
 	@Column(nullable = true)
 	private LocalDate dataDeNascimento;
 	
+	@NotBlank	
+	@Column(nullable = false)
+	private String CEP;
+
+	@NotBlank
+	@Column(nullable = false)
+	private String estado;
+
+	@NotBlank
+	@Column(nullable = false)
+	private String cidade;
+
+	@NotBlank
+	@Column(nullable = false)
+	private String bairro;
+
+	@NotBlank
+	@Column(nullable = false)
+	private String logradouro;
+
+	@NotBlank
+	@Column(nullable = false)
+	private String numero;
+
+	@NotBlank
+	@Column(nullable = false)
+	private String complemento;
 }

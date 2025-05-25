@@ -22,11 +22,20 @@ public class UsuarioServiceTest {
 	private UsuarioDTO criarUsuarioDTO(String nome, String email) {
 		UsuarioDTO dto = new UsuarioDTO();
 		dto.setNomeCompleto(nome);
+		dto.setCpf("12345678900");
 		dto.setEmail(email);
+		dto.setTelefone("99999999");	
 		dto.setSenha("123456");
 		dto.setConfirmacaoDeSenha("123456");
-		dto.setTelefone("99999999");
-		dto.setCpf("12345678900");
+		dto.setDataDeNascimento(LocalDate.of(1990, 1, 1));
+		dto.setCEP("12345-678");
+		dto.setEstado("SP");
+		dto.setCidade("São Paulo");
+		dto.setBairro("Centro");
+		dto.setLogradouro("Rua A");
+		dto.setNumero("123");
+		dto.setComplemento("Apto 1");
+
 		return dto;
 	}
 
@@ -58,8 +67,7 @@ public class UsuarioServiceTest {
 	@Test
 	public void deveDeletarUsuarioPorId() {
 		UsuarioService usuarioService = novoUsuarioService();
-		UsuarioDTO dto = criarUsuarioDTO("Maria Camargo", "maria@example.com");
-		dto.setDataDeNascimento(LocalDate.of(1990, 5, 17));
+		UsuarioDTO dto = criarUsuarioDTO("Maria", "maria@example.com");
 
 		Usuario criado = usuarioService.criarUsuario(dto);
 		Long idCriado = criado.getId();

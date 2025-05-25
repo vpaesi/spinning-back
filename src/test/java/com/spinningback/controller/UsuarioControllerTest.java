@@ -50,21 +50,35 @@ public class UsuarioControllerTest {
 	public void setUp() {
 		usuarioDTO = new UsuarioDTO();
 		usuarioDTO.setNomeCompleto("Maria Camargo");
+		usuarioDTO.setCpf("111.444.777-35");
 		usuarioDTO.setEmail("maria@example.com");
+		usuarioDTO.setTelefone("(11) 91234-5678");
 		usuarioDTO.setSenha("123456");
 		usuarioDTO.setConfirmacaoDeSenha("123456");
 		usuarioDTO.setDataDeNascimento(LocalDate.of(1990, 5, 17));
-		usuarioDTO.setTelefone("(11) 91234-5678");
-		usuarioDTO.setCpf("123.456.789-09");
+		usuarioDTO.setCEP("12345-678");
+		usuarioDTO.setEstado("SP");
+		usuarioDTO.setCidade("São Paulo");
+		usuarioDTO.setBairro("Jardim das Rosas");
+		usuarioDTO.setLogradouro("Rua das Flores");
+		usuarioDTO.setNumero("123");
+		usuarioDTO.setComplemento("Apto 45");
 
 		usuario = new Usuario();
 		usuario.setId(1L);
 		usuario.setNomeCompleto("Maria Camargo");
+		usuario.setCpf("123.456.789-09");
 		usuario.setEmail("maria@example.com");
+		usuario.setTelefone("(11) 91234-5678");
 		usuario.setSenha("123456");
 		usuario.setDataDeNascimento(LocalDate.of(1990, 5, 17));
-		usuario.setTelefone("(11) 91234-5678");
-		usuario.setCpf("123.456.789-09");
+		usuario.setCEP("12345-678");
+		usuario.setEstado("SP");
+		usuario.setCidade("São Paulo");
+		usuario.setBairro("Jardim das Rosas");
+		usuario.setLogradouro("Rua das Flores");
+		usuario.setNumero("123");
+		usuario.setComplemento("Apto 45");
 	}
 
 	@Test
@@ -106,43 +120,43 @@ public class UsuarioControllerTest {
 
 	@Test
 	@WithMockUser
-	public void deveAtualizarUsuario() throws Exception {
-		Usuario atualizado = criarUsusarioAtualizado();
-		mockAtualizacaoUsuario(atualizado);
-
-		mockMvc.perform(put("/usuario/1")
-				.with(csrf())
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(atualizado)))
-				.andDo(print())
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.nomeCompleto").value("Maria Atualizada"))
-				.andExpect(jsonPath("$.email").value("nova@example.com"));
-	}
-
-	private Usuario criarUsusarioAtualizado() {
-		Usuario atualizado = new Usuario();
-		atualizado.setId(1L);
-		atualizado.setNomeCompleto("Maria Atualizada");
-		atualizado.setEmail("nova@example.com");
-		atualizado.setSenha("654321");
-		atualizado.setDataDeNascimento(LocalDate.of(1990, 5, 17));
-		atualizado.setTelefone("(11) 91234-5678");
-		atualizado.setCpf("123.456.789-09");
-		return atualizado;
-	}
-
-	private void mockAtualizacaoUsuario(Usuario atualizado) {
-		Mockito.when(usuarioService.atualizarUsuario(eq(1L), any(Usuario.class))).thenReturn(atualizado);
-	}
-
-	@Test
-	@WithMockUser
 	public void deveDeletarUsuario() throws Exception {
 		Mockito.doNothing().when(usuarioService).deletarUsuario(1L);
 
 		mockMvc.perform(delete("/usuario/1")
 				.with(csrf()))
 				.andExpect(status().isNoContent());
+	}
+
+	@Test
+	@WithMockUser
+	public void deveAtualizarUsuario() throws Exception {
+		Usuario usuarioAtualizado = new Usuario();
+		usuarioAtualizado.setId(1L);
+		usuarioAtualizado.setNomeCompleto("Maria Atualizada");
+		usuarioAtualizado.setCpf("123.456.789-09");
+		usuarioAtualizado.setEmail("maria.atualizada@example.com");
+		usuarioAtualizado.setTelefone("(11) 91234-5678");
+		usuarioAtualizado.setSenha("123456");
+		usuarioAtualizado.setDataDeNascimento(LocalDate.of(1990, 5, 17));
+		usuarioAtualizado.setCEP("12345-678");
+		usuarioAtualizado.setEstado("SP");
+		usuarioAtualizado.setCidade("São Paulo");
+		usuarioAtualizado.setBairro("Jardim das Rosas");
+		usuarioAtualizado.setLogradouro("Rua das Flores");
+		usuarioAtualizado.setNumero("123");
+		usuarioAtualizado.setComplemento("Apto 45");
+
+		Mockito.when(usuarioService.atualizarUsuario(Mockito.eq(1L), any(Usuario.class)))
+				.thenReturn(usuarioAtualizado);
+
+		mockMvc.perform(put("/usuario/1")
+				.with(csrf())
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(usuarioAtualizado)))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.id").value(1L))
+				.andExpect(jsonPath("$.nomeCompleto").value("Maria Atualizada"))
+				.andExpect(jsonPath("$.email").value("maria.atualizada@example.com"));
 	}
 }
