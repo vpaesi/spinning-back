@@ -38,4 +38,4 @@ WORKDIR /home/spinning-back
 COPY --from=build /home/spinning-back/build/libs/spinningback-0.0.1-SNAPSHOT.jar .
 
 # Definir o ponto de entrada do contêiner
-ENTRYPOINT ["sh", "-c", "java -jar -Dspring.profiles.active=$ENVIRONMENT spinningback-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=$ENVIRONMENT -jar spinningback-0.0.1-SNAPSHOT.jar"]
