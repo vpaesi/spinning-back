@@ -19,11 +19,16 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @WebMvcTest(UsuarioController.class)
 @AutoConfigureMockMvc
@@ -102,16 +107,8 @@ public class UsuarioControllerTest {
 	@Test
 	@WithMockUser
 	public void deveAtualizarUsuario() throws Exception {
-		Usuario atualizado = new Usuario();
-		atualizado.setId(1L);
-		atualizado.setNomeCompleto("Maria Atualizada");
-		atualizado.setEmail("nova@example.com");
-		atualizado.setSenha("654321");
-		atualizado.setDataDeNascimento(LocalDate.of(1990, 5, 17));
-		atualizado.setTelefone("(11) 91234-5678");
-		atualizado.setCpf("123.456.789-09");
-
-		Mockito.when(usuarioService.atualizarUsuario(eq(1L), any(Usuario.class))).thenReturn(atualizado);
+		Usuario atualizado = criarUsusarioAtualizado();
+		mockAtualizacaoUsuario(atualizado);
 
 		mockMvc.perform(put("/usuario/1")
 				.with(csrf())
@@ -121,6 +118,22 @@ public class UsuarioControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.nomeCompleto").value("Maria Atualizada"))
 				.andExpect(jsonPath("$.email").value("nova@example.com"));
+	}
+
+	private Usuario criarUsusarioAtualizado() {
+		Usuario atualizado = new Usuario();
+		atualizado.setId(1L);
+		atualizado.setNomeCompleto("Maria Atualizada");
+		atualizado.setEmail("nova@example.com");
+		atualizado.setSenha("654321");
+		atualizado.setDataDeNascimento(LocalDate.of(1990, 5, 17));
+		atualizado.setTelefone("(11) 91234-5678");
+		atualizado.setCpf("123.456.789-09");
+		return atualizado;
+	}
+
+	private void mockAtualizacaoUsuario(Usuario atualizado) {
+		Mockito.when(usuarioService.atualizarUsuario(eq(1L), any(Usuario.class))).thenReturn(atualizado);
 	}
 
 	@Test

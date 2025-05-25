@@ -1,5 +1,6 @@
 package com.spinningback.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -18,17 +19,26 @@ import com.spinningback.services.UsuarioService;
 
 public class UsuarioServiceTest {
 
-	@Test
-	public void deveCriarUsuario() {
+	private UsuarioDTO criarUsuarioDTO(String nome, String email) {
 		UsuarioDTO dto = new UsuarioDTO();
-		dto.setNomeCompleto("Fulano");
-		dto.setEmail("fulano@email.com");
+		dto.setNomeCompleto(nome);
+		dto.setEmail(email);
 		dto.setSenha("123456");
 		dto.setConfirmacaoDeSenha("123456");
-		dto.setTelefone("999999999");
-		dto.setCpf("12345678901");
+		dto.setTelefone("99999999");
+		dto.setCpf("12345678900");
+		return dto;
+	}
 
-		UsuarioService service = new UsuarioService();
+	private UsuarioService novoUsuarioService() {
+		return new UsuarioService();
+	}
+	
+	@Test
+	public void deveCriarUsuario() {
+		UsuarioDTO dto = criarUsuarioDTO("Fulano", "fulano@email.com");
+
+		UsuarioService service = novoUsuarioService();
 		Usuario usuario = service.criarUsuario(dto);
 
 		assertNotNull(usuario.getId());
@@ -47,18 +57,13 @@ public class UsuarioServiceTest {
 
 	@Test
 	public void deveDeletarUsuarioPorId() {
-		UsuarioService usuarioService = new UsuarioService();
-		UsuarioDTO dto = new UsuarioDTO();
-		dto.setNomeCompleto("Maria Camargo");
-		dto.setEmail("maria@example.com");
-		dto.setSenha("123456");
-		dto.setConfirmacaoDeSenha("123456");
+		UsuarioService usuarioService = novoUsuarioService();
+		UsuarioDTO dto = criarUsuarioDTO("Maria Camargo", "maria@example.com");
 		dto.setDataDeNascimento(LocalDate.of(1990, 5, 17));
 
-		Usuario criado = usuarioService.criarUsuario(dto); // cria no HashMap
+		Usuario criado = usuarioService.criarUsuario(dto);
 		Long idCriado = criado.getId();
 
-		// Agora sim podemos deletar
 		usuarioService.deletarUsuario(idCriado);
 
 		assertThrows(NoSuchElementException.class, () -> usuarioService.buscarUmUsuario(idCriado));
@@ -66,15 +71,9 @@ public class UsuarioServiceTest {
 
 	@Test
 	public void deveAtualizarUsuarioPorId() {
-		UsuarioService service = new UsuarioService();
-		UsuarioDTO dto = new UsuarioDTO();
-		dto.setNomeCompleto("Joana");
-		dto.setEmail("joana@email.com");
-		dto.setSenha("senha123");
-		dto.setConfirmacaoDeSenha("senha123");
-		dto.setTelefone("99999999");
-		dto.setCpf("12345678900");
-
+		UsuarioService service = novoUsuarioService();
+		UsuarioDTO dto = criarUsuarioDTO("Joana", "joana@email.com");
+		
 		Usuario usuario = service.criarUsuario(dto);
 		Long id = usuario.getId();
 
@@ -91,20 +90,14 @@ public class UsuarioServiceTest {
 
 	@Test
 	public void deveRetornarUsuarioPorId() {
-		UsuarioService service = new UsuarioService();
-		UsuarioDTO dto = new UsuarioDTO();
-		dto.setNomeCompleto("Carlos");
-		dto.setEmail("carlos@email.com");
-		dto.setSenha("123456");
-		dto.setConfirmacaoDeSenha("123456");
-		dto.setTelefone("99999999");
-		dto.setCpf("12345678900");
-
+		UsuarioService service = novoUsuarioService();
+		UsuarioDTO dto = criarUsuarioDTO("Carlos", "carlos@email.com");
+		
 		Usuario criado = service.criarUsuario(dto);
 		Usuario encontrado = service.buscarUmUsuario(criado.getId());
 
 		assertNotNull(encontrado);
-		assertTrue(encontrado.getEmail().equals("carlos@email.com"));
+		assertEquals("carlos@email.com", encontrado.getEmail());
 	}
 
 }

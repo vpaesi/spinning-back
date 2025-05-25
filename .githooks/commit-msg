@@ -6,6 +6,9 @@ COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
 BRANCH_NAME=$(git symbolic-ref --short HEAD)
 
 BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/^[^/]*\///')
+if [ -z "$BRANCH_NAME" ]; then
+  BRANCH_NAME="main"
+fi
 
 if ! echo "$COMMIT_MSG" | grep -qE "^(feat|fix|test|docs|chore|style|refactor|merge)\($BRANCH_NAME\): .+"; then
   echo "Erro: A mensagem de commit deve seguir o formato '<tipo>(<branch>): <descrição>'"
